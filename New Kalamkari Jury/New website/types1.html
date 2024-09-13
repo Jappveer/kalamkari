@@ -1,0 +1,93 @@
+<html>
+	<head>
+            <title>Website Design using HTML and CSS</title>
+            <link rel="stylesheet" href="type1.css">
+        </head>
+<body>
+	
+	<div class="container">
+			
+			</div>
+	
+	 <div class="information">
+                   <div class="overlay"></div>
+                   <img src="images/phone.png" class="phone">
+                   <div id="circle">
+                       <div class="feature one">
+                        <img src="images/camera.png">
+                           <div><h1>Two identifiable</h1>
+                                <h2>Styles</h2>
+                                <p>There are two identifiable styles of Kalamkari art in India – Srikalahasti style and Machilipatnam style.<br>
+									In the Machilipatnam style of Kalamkari, motifs are essentially printed with hand-carved traditional blocks with intricate detailing painted by hands.<br>
+									On the other hand, Srikalahasti style of painting draws inspiration from the Hindu mythology describing scenes from the epics and folklore.<br>
+									This style holds a strong religious connect because of its origin in the temples.<br>
+                                   </p> 
+                               <h2>Front</h2>
+                                <p>16MP Wide Angle Camera
+                           </div>
+                       </div>
+                       <div class="feature two">
+                        <img src="images/processor.png">
+                           <div><h1>Processor<br></h1>
+                                <p>Snapdragon 888 Octa-core<br>
+                                   Octa core (2.84 GHz, Single Core + 2.42 GHz, <br>Tri core + 1.8 GHz, Quad core)<br>
+                                   12 GB RAM<br></p> 
+                           </div>
+                       </div>
+                       <div class="feature three">
+                        <img src="images/display.png">
+                           <div><h1>Display</h1>
+                                <p>6.7 inches (17.02 cm); Fluid AMOLED <br>
+                                   1440x3216 px (526 PPI)<br>
+                                   120 Hz Refresh Rate<br>
+                                   Gorilla Glass 5 Protection<br>
+                                   Bezel-less with punch-hole display<br></p> 
+                           </div>
+                       </div>
+                       <div class="feature four">
+                        <img src="images/battery.png">
+                           <div><h1>Battery</h1>
+                                <p>4500 mAh<br>
+                                   65W Warp Charging; USB Type-C port<br></p> 
+                           </div>
+                       </div>
+                   </div>
+               </div>
+                
+                <div class="controls">
+                    <img src="images/arrow.png" id="upBtn">
+                    <h3>Features</h3>
+                    <img src="images/arrow.png" id="downBtn">
+                </div>
+               
+            </div>
+            
+            <script>
+                var circle = document.getElementById("circle");
+                var upBtn = document.getElementById("upBtn");
+                var downBtn = document.getElementById("downBtn");
+                
+                var rotateValue = circle.style.transform;
+                var rotateSum;
+                
+                
+                upBtn.onclick = function()
+                {
+                    rotateSum = rotateValue + "rotate(-90deg)";
+                    circle.style.transform = rotateSum;
+                    rotateValue = rotateSum;
+                }
+                downBtn.onclick = function()
+                {
+                    rotateSum = rotateValue + "rotate(90deg)";
+                    circle.style.transform = rotateSum;
+                    rotateValue = rotateSum;
+                }
+            </script>
+		
+		
+		
+		
+	
+</body>
+</html>

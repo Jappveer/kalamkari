@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Login Page</title>
+</head>
+<body background="Photos/login.jpg">
+<form name="loginForm" method="post" action="login.php">
+<table width="30%" height="10%" bgcolor="#DEDDAF" align="center" cellpadding="20">
+
+<tr>
+<td colspan="2"><center><font size="4" color="#1E1E1E">
+	
+	<form>
+ <input type="button" value="Go back!" onclick="history.back()" align="left">
+</form>
+	 
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<b>Login, if you already have an account</b></font></center></td>
+</tr>
+
+<tr>
+<td>Username:</td>
+<td><input type="text" size="35" name="userid"></td>
+</tr>
+
+<tr>
+<td>Password:</td>
+<td><input type="Password" size="35" name="pwd"></td>
+</tr>
+<tr>
+<td ><input type="Reset"></td>
+<td><input type="submit" onclick="return check(this.form)" value="Login"></td>
+</tr>
+
+</table>
+</form>
+	</body>
+	</html>

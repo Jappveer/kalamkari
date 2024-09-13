@@ -1,0 +1,50 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+}
+
+body{
+	background: url("Photos/bg contact.png") no-repeat;
+}	
+.wrapper{
+	position: absolute;
+	top: 50px;
+	transform: translateY(-50%);
+	width: 100%;
+	padding: 0 20px;
+}
+.contact-form{
+	max-width: 500px;
+	margin: 0 auto;
+	background-color: #7C876A;
+	padding: 30px;
+	border-radius: 5px;
+	display: flex;
+	box-shadow: 0 0 10px;
+}
+.input-fields{
+	display: flex;
+	flex-direction: column;
+	margin-right: 4%;
+}
+	
+.input-fields,
+	.msg {
+		width: 48%;
+	}
+.input-fields .input,
+.msg textarea{
+	margin: 10px 0;		
+	background: transparent;
+	border:0;
+	border-bottom: 2px solid #2B3523;
+	padding:10px;
+	color: #2B3523;
+	width:100;
+	}
+.msg textarea{
+	height: 212px;
+	}
