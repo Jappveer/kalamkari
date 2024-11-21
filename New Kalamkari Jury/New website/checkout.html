@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Kalamkari Shop</title>
+    <link rel="stylesheet" href="New Stylesheet.css">
+    <style>
+        .h1 {
+            color: black;
+        }
+        .checkout-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: black;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .submit-btn {
+            background-color: #A6751C;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #8f5a1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <h1 class="h1">Checkout</h1>
+        <form id="checkoutForm">
+            <div class="input-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" required>
+            </div>
+            <div class="input-group">
+                <label for="city">City</label>
+                <input type="text" id="city" required>
+            </div>
+            <div class="input-group">
+                <label for="state">State</label>
+                <input type="text" id="state" required>
+            </div>
+            <div class="input-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" required>
+            </div>
+            <div class="input-group">
+                <label for="zip">Zip Code</label>
+                <input type="number" id="pincode" required placeholder="Enter your zip code">
+            </div>
+            <div class="input-group">
+                <label for="phone">Phone Number</label>
+                <input type="number" id="phone" required>
+            </div>
+            <button type="submit" class="submit-btn">Place Order</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('checkoutForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Retrieve items from cart stored in sessionStorage
+            const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            const orderItems = cart.map(item => ({
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                product: item.productId // Keep this as a string for now
+            }));
+
+            // Retrieve shipping details from form inputs
+            const shippingInfo = {
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                country: document.getElementById('country').value,
+                pinCode: document.getElementById('pincode').value,
+                phoneNo: document.getElementById('phone').value,
+            };
+
+            // Prepare order data
+            const orderData = {
+                shippingInfo,
+                orderItems,
+                totalPrice: cart.reduce((total, item) => total + item.price * item.quantity, 0),
+                paymentInfo: {
+                    id: 'pending', // Add real payment ID if available
+                    status: 'Pending', // Default status
+                },
+            };
+
+            try {
+                const token = sessionStorage.getItem('token'); // Retrieve token from sessionStorage
+                if (!token) {
+                    alert('You are not logged in. Please log in to continue.');
+                    return;
+                }
+
+                const response = await fetch('http://localhost:5000/api/orders/new', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Include token if user is logged in
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Order placed successfully!');
+                    sessionStorage.removeItem('cart'); // Clear cart after successful order
+                    window.location.href = 'New website.html'; // Redirect to home page
+                } else {
+                    alert(data.message || 'Error placing order.');
+                }
+            } catch (error) {
+                alert('Error connecting to the server.');
+            }
+        });
+    </script>
+</body>
+</html>

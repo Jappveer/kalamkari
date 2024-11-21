@@ -31,12 +31,15 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/products', authenticate, productRoutes);
-app.use('/api/orders', authenticate, orderRoutes);
-app.use('/api/admin', authenticate, adminRoutes);
-
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+// app.use('/api/admin', authenticate, adminRoutes);
+// app.use('/api/auth', authRoutes);
+// app.use('/api/products', authenticate, productRoutes);
+// app.use('/api/orders', authenticate, orderRoutes);
+// // app.use('/api/admin', authenticate, adminRoutes);
 // Global Error Handler
-app.use(handleErrors);
+// app.use(handleErrors);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

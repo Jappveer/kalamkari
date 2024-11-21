@@ -33,8 +33,20 @@
         .shop-title {
             padding: 40px 0 20px;
             text-align: center;
-            color:white;
+            color: white;
             font-size: 2.5em;
+        }
+        .add-to-cart {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .add-to-cart:hover {
+            background-color: #218838;
         }
     </style>
 </head>
@@ -51,6 +63,7 @@
                     <li><a href="Motifs.html">Motifs</a></li>
                     <li><a href="Colours.html">Colours</a></li>
                     <li><a href="../GALLERY.html">Gallery</a></li>
+                    <li><a href="cart.html">Cart</a></li>
                 </ul>
             </nav>
             <img src="photos/menu-icon.jpg" class="menu-icon">
@@ -59,19 +72,45 @@
         <h1 class="shop-title">Kalamkari Shop</h1>
 
         <div class="product-grid">
-            <!-- Add product cards here -->
             <div class="product-card">
                 <img src="path/to/product1.jpg" alt="Product 1">
                 <h3>Kalamkari Design 1</h3>
                 <p>₹1,999</p>
+                <button class="add-to-cart" onclick="addToCart('Kalamkari Design 1', 1999, 'product1Id')">Add to Cart</button>
             </div>
             <div class="product-card">
                 <img src="path/to/product2.jpg" alt="Product 2">
                 <h3>Kalamkari Design 2</h3>
                 <p>₹2,499</p>
+                <button class="add-to-cart" onclick="addToCart('Kalamkari Design 2', 2499, 'product2Id')">Add to Cart</button>
             </div>
             <!-- Add more product cards as needed -->
         </div>
     </div>
+
+    <script>
+        const cart = JSON.parse(sessionStorage.getItem('cart')) || []; // Retrieve cart from sessionStorage
+
+        function addToCart(productName, productPrice, productId) {
+            const existingProductIndex = cart.findIndex(item => item.productId === productId);
+
+            if (existingProductIndex > -1) {
+                // If the product is already in the cart, increase the quantity
+                cart[existingProductIndex].quantity += 1;
+            } else {
+                // If the product is not in the cart, add it
+                const product = {
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1,
+                    productId: productId // Store product ID for reference
+                };
+                cart.push(product);
+            }
+
+            sessionStorage.setItem('cart', JSON.stringify(cart)); // Save updated cart to sessionStorage
+            alert(`${productName} has been added to your cart!`);
+        }
+    </script>
 </body>
 </html>

@@ -24,10 +24,10 @@ const UserSchema = new mongoose.Schema({
     enum: ['user', 'admin', 'manager'],
     default: 'user'
   },
-  isVerified: {
-    type: Boolean,
-    default: false
-  },
+  // // isVerified: {
+  //   type: Boolean,
+  //   default: false
+  // },
   resetPasswordToken: String,
   resetPasswordExpires: Date
 }, { timestamps: true });

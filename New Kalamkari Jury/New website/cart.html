@@ -1,0 +1,121 @@
+cart.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Kalamkari Shop</title>
+    <link rel="stylesheet" href="New Stylesheet.css">
+    <style>
+        .cart-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            color: white;
+        }
+        .cart-total {
+            margin-top: 20px;
+            text-align: right;
+            color: white;
+            font-size: 1.2em;
+        }
+        .checkout-btn {
+            background-color: #A6751C;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            float: right;
+        }
+        .empty-cart {
+            text-align: center;
+            color: white;
+            padding: 40px;
+        }
+        .shop-title {
+            margin-top: 40px;
+            color: white;
+            font-size: 35px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <img src="photos/Logo3.png" class="logo" alt="Kalamkari Logo">
+            <nav>
+                <ul>
+                    <li><a href="New website.html">Home</a></li>
+                    <li><a href="About.html">About</a></li>
+                    <li><a href="Evolution.html">Evolution</a></li>
+                    <li><a href="Types.html">Types</a></li>
+                    <li><a href="Motifs.html">Motifs</a></li>
+                    <li><a href="Colours.html">Colours</a></li>
+                    <li><a href="../GALLERY.html">Gallery</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    
+                </ul>
+            </nav>
+            <img src="photos/menu-icon.jpg" class="menu-icon" alt="Menu Icon">
+        </div>
+
+        <h1 class="shop-title">Shopping Cart</h1>
+
+        <div class="cart-container">
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                Total: ₹<span id="cart-total">0</span>
+            </div>
+            <button class="checkout-btn" onclick="window.location.href='checkout.html'">Checkout</button>
+
+        </div>
+    </div>
+
+    <script>
+        function displayCart() {
+            const cartContainer = document.getElementById('cart-items');
+            const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                document.getElementById('cart-total').textContent = '0';
+                return;
+            }
+
+            let total = 0;
+            cartContainer.innerHTML = cart.map((item, index) => {
+                total += item.price * item.quantity;
+                return `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span>₹${item.price}</span>
+                        <span>Quantity: ${item.quantity}</span>
+                        <button onclick="removeItem(${index})" style="color: red;">Remove</button>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cart-total').textContent = total;
+        }
+
+        function removeItem(index) {
+            const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+
+        displayCart();
+    </script>
+</body>
+</html> 

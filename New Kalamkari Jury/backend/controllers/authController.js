@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
     await user.save();
 
     // Send verification email
-    await sendVerificationEmail(user);
+    // await sendVerificationEmail(user);
 
     // Generate JWT token
     const token = jwt.sign(
@@ -58,9 +58,9 @@ exports.login = async (req, res) => {
     }
 
     // Check if user is verified
-    if (!user.isVerified) {
-      return res.status(403).json({ message: 'Please verify your email' });
-    }
+    // if (!user.isVerified) {
+      // return res.status(403).json({ message: 'Please verify your email' });
+    // }
 
     // Generate JWT token
     const token = jwt.sign(
@@ -68,7 +68,7 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
-
+    console.log('Generated Token:', token); // Log the token
     res.json({
       token,
       userId: user._id,
@@ -79,26 +79,26 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.verifyEmail = async (req, res) => {
-  try {
-    const { token } = req.params;
+// exports.verifyEmail = async (req, res) => {
+  // try {
+  //   const { token } = req.params;
 
-    // Verify email verification token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id);
+  //   // Verify email verification token
+  //   // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  //   const user = await User.findById(decoded.id);
 
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid verification token' });
-    }
+  //   if (!user) {
+  //     return res.status(400).json({ message: 'Invalid verification token' });
+  //   }
 
-    user.isVerified = true;
-    await user.save();
+  //   user.isVerified = true;
+  //   await user.save();
 
-    res.json({ message: 'Email verified successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'Email verification failed', error: error.message });
-  }
-};
+  //   res.json({ message: 'Email verified successfully' });
+  // } catch (error) {
+  //   res.status(500).json({ message: 'Email verification failed', error: error.message });
+  // }
+// };
 
 exports.getUserProfile = async (req, res) => {
     try {
