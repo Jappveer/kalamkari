@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ProductController = require('../controllers/productController');
 const { 
-  authenticateUser, 
+  authenticate, 
   authorizeRoles 
 } = require('../middleware/authentication');
 
@@ -18,19 +18,19 @@ router.get('/:id', ProductController.getProductDetails);
 
 // // Admin routes
 router.post('/new', 
-  authenticateUser, 
+  authenticate, 
   authorizeRoles('admin'), 
   ProductController.createProduct
 );
 
 router.put('/:id', 
-  authenticateUser, 
+  authenticate, 
   authorizeRoles('admin'), 
   ProductController.updateProduct
 );
 
 router.delete('/:id', 
-  authenticateUser, 
+  authenticate, 
   authorizeRoles('admin'), 
   ProductController.deleteProduct
 );

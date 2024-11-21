@@ -2,41 +2,41 @@ const express = require('express');
 const router = express.Router();
 const OrderController = require('../controllers/orderController');
 const { 
-  authenticateUser, 
+  authenticate, 
   authorizeRoles 
 } = require('../middleware/authentication');
 
 // User routes
 router.post('/new', 
-  authenticateUser, 
+  authenticate, 
   OrderController.newOrder
 );
 
 router.get('/me', 
-  authenticateUser, 
+  authenticate, 
   OrderController.myOrders
 );
 
 router.get('/:id', 
-  authenticateUser, 
+  authenticate, 
   OrderController.getSingleOrder
 );
 
 // Admin routes
 router.get('/', 
-  authenticateUser, 
+  authenticate, 
   authorizeRoles('admin'), 
   OrderController.getAllOrders
 );
 
 router.put('/:id', 
-  authenticateUser, 
+  authenticate, 
   authorizeRoles('admin'), 
   OrderController.updateOrder
 );
 
 router.delete('/:id', 
-  authenticateUser, 
+  authenticate, 
   authorizeRoles('admin'), 
   OrderController.deleteOrder
 );

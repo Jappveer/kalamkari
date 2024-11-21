@@ -3,7 +3,7 @@ const User = require('../models/User');
 const rateLimit = require('express-rate-limit');
 
 // JWT Authentication Middleware
-exports.authenticateUser = async (req, res, next) => {
+exports.authenticate = async (req, res, next) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
 

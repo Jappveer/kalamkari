@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const AuthController = require('../controllers/authController');
 const { 
-  authenticateUser, 
+  authenticate, 
   authorizeRoles 
 } = require('../middleware/authentication');
 
@@ -14,8 +14,8 @@ router.get('/verify-email/:token', AuthController.verifyEmail);
 // router.post('/reset-password/:token', AuthController.resetPassword);
 
 // Protected routes
-router.get('/profile', authenticateUser, AuthController.getUserProfile);
-router.put('/profile/update', authenticateUser, AuthController.updateProfile);
+router.get('/profile', authenticate, AuthController.getUserProfile);
+router.put('/profile/update', authenticate, AuthController.updateProfile);
 // router.put('/password/change', authenticateUser, AuthController.changePassword);
 
 // Admin routes
